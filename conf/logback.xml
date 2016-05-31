@@ -1,0 +1,87 @@
+<configuration>
+
+	<conversionRule conversionWord="coloredLevel"
+		converterClass="play.api.Logger$ColoredLevel" />
+
+	<appender name="INFO_FILE"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${application.home}/logs/v-clinic-info.log</file>
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+			<level>INFO</level>
+			<onMatch>ACCEPT</onMatch>
+			<onMismatch>DENY</onMismatch>
+		</filter>
+
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<!-- Daily rollover with compression -->
+			<fileNamePattern>info-log-%d{yyyy-MM-dd}.gz</fileNamePattern>
+			<!-- keep 30 days worth of history -->
+			<maxHistory>30</maxHistory>
+		</rollingPolicy>
+		<encoder>
+			<pattern>%date{yyyy-MM-dd HH:mm:ss ZZZZ} [%level] from %logger - %message%n%xException</pattern>
+		</encoder>
+	</appender>
+	
+	<appender name="ERROR_FILE"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${application.home}/logs/v-clinic-error.log</file>
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+			<level>ERROR</level>
+			<onMatch>ACCEPT</onMatch>
+			<onMismatch>DENY</onMismatch>
+		</filter>
+
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<!-- Daily rollover with compression -->
+			<fileNamePattern>error-log-%d{yyyy-MM-dd}.gz</fileNamePattern>
+			<!-- keep 30 days worth of history -->
+			<maxHistory>30</maxHistory>
+		</rollingPolicy>
+		<encoder>
+			<pattern>%date{yyyy-MM-dd HH:mm:ss ZZZZ} [%level] from %logger - %message%n%xException</pattern>
+		</encoder>
+	</appender>
+
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>%coloredLevel %logger{15} - %message%n%xException{10}
+			</pattern>
+		</encoder>
+	</appender>
+
+	<appender name="ASYNCFILE" class="ch.qos.logback.classic.AsyncAppender">
+		<appender-ref ref="INFO_FILE" />
+		<appender-ref ref="ERROR_FILE" />
+	</appender>
+
+	<appender name="ASYNCSTDOUT" class="ch.qos.logback.classic.AsyncAppender">
+		<appender-ref ref="STDOUT" />
+	</appender>
+
+	<logger name="play" level="OFF" />
+	<logger name="application" level="OFF" />
+	<logger name="com.zaxxer" level="OFF" />
+
+	<!-- Set logging for all Akka library classes to INFO -->
+	<logger name="akka" level="OFF" />
+	<!-- Set a specific actor to DEBUG -->
+	<logger name="actors.MyActor" level="OFF" />
+
+	<!-- Off these ones as they are annoying, and anyway we manage configuration 
+		ourself -->
+	<logger name="com.avaje.ebean.config.PropertyMapLoader" level="OFF" />
+	<logger name="com.avaje.ebeaninternal.server.core.XmlConfigLoader"
+		level="OFF" />
+	<logger name="com.avaje.ebeaninternal.server.lib.BackgroundThread"
+		level="OFF" />
+	<logger name="com.gargoylesoftware.htmlunit.javascript" level="OFF" />
+	<logger name="org.hibernate" level="OFF" />
+
+	<root level="INFO">
+		<appender-ref ref="ASYNCFILE" />
+		<appender-ref ref="ASYNCSTDOUT" />
+		<appender-ref ref="ERROR_FILE" />
+	</root>
+
+</configuration>

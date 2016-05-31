@@ -1,0 +1,31 @@
+New log file opened at Sun Apr 24 16:45:55 ICT 2016 by 3160@Phuong-PC
+Taking next connection to: 50674
+New client attempting to connect on port: 50676-50674
+  Address = /192.168.1.113:50674
+This client on port 50676 has uuid 0b6d7028-e826-48e0-9dc8-55488f235a7a configName play-fork-run humanReadableName Play Fork Run protocolVersion 1 featureTags Vector()
+Connected Clients: play-fork-run-0b6d7028-e826-48e0-9dc8-55488f235a7a
+Taking next connection to: 50674
+Checking to see if clients are empty...
+We have 1 non-daemon clients, continuing serving connections.
+Taking next connection to: 50674
+Checking to see if clients are empty...
+We have 1 non-daemon clients, continuing serving connections.
+Taking next connection to: 50674
+Checking to see if clients are empty...
+We have 1 non-daemon clients, continuing serving connections.
+Taking next connection to: 50674
+Checking to see if clients are empty...
+We have 1 non-daemon clients, continuing serving connections.
+Taking next connection to: 50674
+Checking to see if clients are empty...
+We have 1 non-daemon clients, continuing serving connections.
+Taking next connection to: 50674
+Checking to see if clients are empty...
+We have 1 non-daemon clients, continuing serving connections.
+Taking next connection to: 50674
+Checking to see if clients are empty...
+We have 1 non-daemon clients, continuing serving connections.
+Taking next connection to: 50674
+Checking to see if clients are empty...
+We have 1 non-daemon clients, continuing serving connections.
+Taking next connection to: 50674
