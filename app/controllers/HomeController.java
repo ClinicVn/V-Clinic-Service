@@ -15,7 +15,7 @@ import views.html.*;
 
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
-@Security.Authenticated(Secured.class)
+//@Security.Authenticated(Secured.class)
 public class HomeController extends Controller {
 
 

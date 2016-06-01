@@ -1,6 +1,13 @@
 package controllers;
 
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import models.User;
 
 import org.slf4j.Logger;
@@ -18,6 +25,7 @@ import services.UserService;
 
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
+@Api(value = "/Authentication")
 public class SecurityController extends Controller {
     final static Logger logger = LoggerFactory.getLogger(SecurityController.class);
 
@@ -32,6 +40,29 @@ public class SecurityController extends Controller {
     }
 
     // returns an authToken
+    @ApiOperation(
+        value = "Login",
+        notes = "After login must process the token")
+
+    @ApiResponses(
+        value = {
+            @ApiResponse(code = 200, message = "Login successfully"),
+            @ApiResponse(code = 401, message = "Login failure"),
+            @ApiResponse(code = 500, message = "DB connection error")
+        })
+
+    @ApiImplicitParams(
+        {
+            @ApiImplicitParam(
+                name = "user",
+                dataType = "String",
+                required = true,
+                paramType = "String",
+                value = "dungvst"
+                    )
+        }
+            )
+
     @Transactional
     public Result login() {
         Form<Login> loginForm = Form.form(Login.class).bindFromRequest();
@@ -59,6 +90,9 @@ public class SecurityController extends Controller {
         }
     }
 
+    @ApiOperation(
+        value = "Logout",
+        notes = "")
     @Security.Authenticated(Secured.class)
     public Result logout() {
         response().discardCookie(AUTH_TOKEN);

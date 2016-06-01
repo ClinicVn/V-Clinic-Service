@@ -1,5 +1,12 @@
 package controllers;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
+
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -17,19 +24,15 @@ import views.html.*;
 
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
+@Api(value = "/Users")
 public class UserController extends Controller {
     static Form<User> userForm = Form.form(User.class);
     final static Logger logger = LoggerFactory.getLogger(UserController.class);
     public static User globleUser = new User();
 
-    /**
-     * Get the users with pagination
-     *
-     * @param Integer page
-     * @param Integer size
-     *
-     * @return Result
-     */
+    @ApiOperation(
+        value = "List all users",
+        notes = "User must sign in")
 
     @Transactional(readOnly = true)
     public Result list(Integer page, Integer size) {
