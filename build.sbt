@@ -14,7 +14,9 @@ libraryDependencies ++= Seq(
   cache,
   javaWs,
   "org.codehaus.jackson" % "jackson-mapper-asl" % "1.8.5",
-  "io.swagger" %% "swagger-play2" % "1.5.1"
+  "io.swagger" %% "swagger-play2" % "1.5.1",
+  "org.webjars" % "swagger-ui" % "2.1.8-M1"
+  
 )
 
 // Play provides two styles of routers, one expects its actions to be injected, the
