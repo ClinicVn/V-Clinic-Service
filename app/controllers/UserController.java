@@ -32,7 +32,7 @@ public class UserController extends Controller {
 
     @ApiOperation(
         value = "List all users",
-        notes = "User must sign in")
+        notes = "Details for implementation")
 
     @Transactional(readOnly = true)
     public Result list(Integer page, Integer size) {
