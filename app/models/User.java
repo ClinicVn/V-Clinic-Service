@@ -27,7 +27,7 @@ public class User implements Serializable {
     private int id;
 
     private String address;
-    private String authToken;
+    private String auth_token;
 
     @Constraints.Required
     private String code;
@@ -135,21 +135,21 @@ public class User implements Serializable {
     }
 
     public String createToken() {
-        authToken = UUID.randomUUID().toString();
+        auth_token = UUID.randomUUID().toString();
         //        save();
-        return authToken;
+        return auth_token;
     }
 
     public void deleteAuthToken() {
-        authToken = null;
+        auth_token = null;
         //        save();
     }
 
     public String getAuthToken() {
-        return authToken;
+        return auth_token;
     }
 
     public void setAuthToken(String authToken) {
-        this.authToken = authToken;
+        this.auth_token = authToken;
     }
 }
