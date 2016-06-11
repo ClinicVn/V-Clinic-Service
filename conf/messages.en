@@ -1,0 +1,5 @@
+home.welcome = Welcome to Vclinic Services
+
+#User
+user.info.delete.success = Deleted user id {0}
+user.error.delete.notFound = Not found user id {0}
