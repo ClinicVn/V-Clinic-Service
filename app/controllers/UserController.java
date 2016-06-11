@@ -14,6 +14,7 @@ import org.slf4j.LoggerFactory;
 
 import play.*;
 import play.mvc.*;
+import play.i18n.Messages;
 import play.libs.Json;
 import play.libs.Json.*;
 import play.data.Form;
@@ -113,11 +114,11 @@ public class UserController extends Controller {
     public Result delete(Integer id) {
         if (UserService.delete(id)) {
             ObjectNode result = Json.newObject();
-            result.put("msg", "Deleted " + id);
+            result.put("msg", Messages.get("user.info.delete.success",id));
             return JsonController.jsonResult(ok(result));
         }
         ObjectNode result = Json.newObject();
-        result.put("error", "Not found " + id);
+        result.put("error",Messages.get("user.error.delete.notFound",id));
         return JsonController.jsonResult(notFound(result));
     }
 

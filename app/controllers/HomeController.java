@@ -4,6 +4,7 @@ import java.util.List;
 
 import play.*;
 import play.mvc.*;
+import play.i18n.Messages;
 import play.libs.Json;
 import play.libs.Json.*;
 import play.data.Form;
@@ -20,6 +21,8 @@ public class HomeController extends Controller {
 
 
     public Result index() {
-        return ok(index.render("Welcome to V-Clinic services"));
+        ctx().changeLang("vn");
+        String welcomeMsg = Messages.get("home.welcome");
+        return ok(index.render(welcomeMsg));
     }
 }
