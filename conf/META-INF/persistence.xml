@@ -15,12 +15,6 @@
         <class>models.UserRole</class>
         <class>models.LastUpdate</class>
         <class>models.Customer</class>
-        <!-- <class>models.Customer</class> -->
-      <!--   <class>models.LastUpdate</class>
-        <class>models.Role</class>
-        <class>models.UserHistory</class>
-        <class>models.UserOtp</class>
-        <class>models.UserRole</class> -->
         <properties>
             <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/>
             <property name="hibernate.hbm2ddl.auto" value="update"/>
@@ -33,7 +27,7 @@
         <non-jta-data-source>DefaultDS</non-jta-data-source>
         <properties>
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect"/>
-            <property name="hibernate.hbm2ddl.auto" value="update"/>
         </properties>
     </persistence-unit>
+    
 </persistence>

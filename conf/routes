@@ -9,12 +9,6 @@ POST    /login                      controllers.SecurityController.login()
 POST    /logout                     controllers.SecurityController.logout()
 
 # Routes API Rest
-GET     /employees                  controllers.EmployeeController.list(page: Integer ?= 1, size: Integer ?= 3)
-GET     /employees/$id<[0-9]+>      controllers.EmployeeController.get(id: Integer)
-POST    /employees                  controllers.EmployeeController.create()
-PUT     /employees                  controllers.EmployeeController.update()
-PATCH   /employees                  controllers.EmployeeController.update()
-DELETE  /employees/$id<[0-9]+>      controllers.EmployeeController.delete(id: Integer)
 
 GET     /users                  controllers.UserController.list(page: Integer ?= 1, size: Integer ?= 3)
 GET     /users/$id<[0-9]+>      controllers.UserController.get(id: Integer)
@@ -24,7 +18,7 @@ PATCH   /users                  controllers.UserController.update()
 DELETE  /users/$id<[0-9]+>      controllers.UserController.delete(id: Integer)
 
 
-GET     /swagger.json           controllers.ApiHelpController.getResources
+#GET     /swagger.json           controllers.ApiHelpController.getResources
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)

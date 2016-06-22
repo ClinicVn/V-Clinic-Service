@@ -6,6 +6,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 import javax.persistence.NoResultException;
+import javax.persistence.Query;
 
 import models.User;
 
@@ -13,10 +14,35 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.StringUtils;
 
+import javax.inject.*;
+
+import play.api.Play;
 import play.db.jpa.JPA;
+import play.db.jpa.JPAApi;
 
 public class UserService {
     final static Logger logger = LoggerFactory.getLogger(UserService.class);
+
+    private JPAApi jpaApi;
+
+    public User findByAuthToken2(String authToken) {
+        this.jpaApi = Play.current().injector().instanceOf(JPAApi.class);
+        try {
+            return jpaApi.withTransaction(() -> {
+                Query q = JPA.em().createQuery("FROM User WHERE auth_token LIKE ?1")
+                        .setParameter(1, authToken);
+                try {
+                    return (User) q.getSingleResult();
+                } catch(NoResultException ex) {
+                    return null;
+                }
+            });
+        } catch (Throwable throwable) {
+            throwable.printStackTrace();
+            return null;
+        }
+    }
+
     /**
      * Create an User
      *

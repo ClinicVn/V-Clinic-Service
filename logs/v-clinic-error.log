@@ -1,0 +1,5 @@
+2016-06-22 11:48:57 +0700 [ERROR] from common.ErrorHandler - Server error: org.hibernate.exception.ConstraintViolationException: could not execute statement
+2016-06-22 11:50:14 +0700 [ERROR] from common.ErrorHandler - Server error: /users?code=phuong&password=123456789&type=1org.hibernate.exception.ConstraintViolationException: could not execute statement
+2016-06-22 11:51:31 +0700 [ERROR] from common.ErrorHandler - Server error at: /users?code=phuong&password=123456789&type=1
+Exceptions: org.hibernate.exception.ConstraintViolationException: could not execute statement
+2016-06-22 11:52:00 +0700 [ERROR] from common.ErrorHandler - Server error at: /users?code=phuong&password=123456789&type=1	Exceptions: org.hibernate.exception.ConstraintViolationException: could not execute statement

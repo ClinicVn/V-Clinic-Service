@@ -1,15 +1,16 @@
 package controllers;
 
+
 import models.User;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import play.db.jpa.JPA;
 import play.mvc.Http.Context;
 import play.mvc.Result;
 import play.mvc.Security;
 import services.UserService;
+
 
 public class Secured extends Security.Authenticator {
     final static Logger logger = LoggerFactory.getLogger(Secured.class);
@@ -18,9 +19,11 @@ public class Secured extends Security.Authenticator {
     public String getUsername(Context ctx) {
         String[] authTokenHeaderValues = ctx.request().headers().get(SecurityController.AUTH_TOKEN_HEADER);
         if ((authTokenHeaderValues != null) && (authTokenHeaderValues.length == 1) && (authTokenHeaderValues[0] != null)) {
-            User user = null;
+            UserService userSv = new UserService();
+            User user = new User();
+
             try {
-                user = findCurrentUser(authTokenHeaderValues[0]);
+                user = userSv.findByAuthToken2(authTokenHeaderValues[0]);
             } catch (Throwable e) {
                 e.printStackTrace();
             }
@@ -37,18 +40,5 @@ public class Secured extends Security.Authenticator {
     public Result onUnauthorized(Context ctx) {
         return unauthorized();
     }
-
-    private User findCurrentUser(final String token) throws Throwable{
-        return JPA.withTransaction(new play.libs.F.Function0<User>() {
-
-            @Override
-            public User apply() throws Throwable {
-                return UserService.findByAuthToken(token);
-            }
-        });
-
-    }
-
-
 
 }

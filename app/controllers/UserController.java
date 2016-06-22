@@ -1,12 +1,5 @@
 package controllers;
 
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
-
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -18,22 +11,22 @@ import play.i18n.Messages;
 import play.libs.Json;
 import play.libs.Json.*;
 import play.data.Form;
+import play.data.FormFactory;
 import play.db.jpa.*;
 import services.UserService;
 import models.*;
 import views.html.*;
 
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.google.inject.Inject;
 
-@Api(value = "/Users")
+@Security.Authenticated(Secured.class)
 public class UserController extends Controller {
-    static Form<User> userForm = Form.form(User.class);
+    @Inject
+    FormFactory formFactory;
     final static Logger logger = LoggerFactory.getLogger(UserController.class);
     public static User globleUser = new User();
 
-    @ApiOperation(
-        value = "List all users",
-        notes = "Details for implementation")
 
     @Transactional(readOnly = true)
     public Result list(Integer page, Integer size) {
@@ -61,7 +54,6 @@ public class UserController extends Controller {
      *
      * @return Result
      */
-    @Security.Authenticated(Secured.class)
     @Transactional(readOnly = true)
     public Result get(Integer id) {
         User user = UserService.find(id);
@@ -80,7 +72,7 @@ public class UserController extends Controller {
      */
     @Transactional
     public Result create() {
-        Form<User> user = userForm.bindFromRequest();
+        Form<User> user = formFactory.form(User.class).bindFromRequest();
         if (user.hasErrors()) {
             return JsonController.jsonResult(badRequest(user.errorsAsJson()));
         }
@@ -95,7 +87,7 @@ public class UserController extends Controller {
      */
     @Transactional
     public Result update() {
-        Form<User> user = userForm.bindFromRequest();
+        Form<User> user = formFactory.form(User.class).bindFromRequest();
         if (user.hasErrors()) {
             return JsonController.jsonResult(badRequest(user.errorsAsJson()));
         }
@@ -120,14 +112,5 @@ public class UserController extends Controller {
         ObjectNode result = Json.newObject();
         result.put("error",Messages.get("user.error.delete.notFound",id));
         return JsonController.jsonResult(notFound(result));
-    }
-
-    @Transactional(readOnly = true)
-    public static Result findUserByToken(String token) {
-        User user = UserService.findByAuthToken(token);
-        if (user == null ) {
-            return null;
-        }
-        return (Result) user;
     }
 }

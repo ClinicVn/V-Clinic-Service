@@ -1,0 +1,34 @@
+2016-06-22 09:47:37 +0700 [INFO] from ErrorHandler - Request: /users
+2016-06-22 09:49:19 +0700 [INFO] from RequestHandler - User request: /users
+2016-06-22 09:49:46 +0700 [INFO] from RequestHandler - User request: /users/1
+2016-06-22 09:50:24 +0700 [INFO] from RequestHandler - User request: /users/1
+2016-06-22 09:50:39 +0700 [INFO] from RequestHandler - User request: /login
+2016-06-22 09:51:00 +0700 [INFO] from RequestHandler - User request: 
+2016-06-22 09:51:01 +0700 [INFO] from RequestHandler - User request: 
+2016-06-22 09:51:46 +0700 [INFO] from RequestHandler - User request: 
+2016-06-22 10:13:28 +0700 [INFO] from common.ActionCreator - Test: /users
+2016-06-22 10:13:41 +0700 [INFO] from common.ActionCreator - Test: /users/1
+2016-06-22 10:31:34 +0700 [INFO] from common.ActionCreator - User request: /users/1
+2016-06-22 10:31:50 +0700 [INFO] from common.ActionCreator - User request: /users
+2016-06-22 11:36:17 +0700 [INFO] from common.ActionCreator - User request: /users/1
+2016-06-22 11:36:22 +0700 [INFO] from common.ActionCreator - User request: /
+2016-06-22 11:36:28 +0700 [INFO] from common.ActionCreator - User request: /users
+2016-06-22 11:36:32 +0700 [INFO] from common.ActionCreator - User request: /login
+2016-06-22 11:36:45 +0700 [INFO] from common.ActionCreator - User request: /users/1
+2016-06-22 11:36:50 +0700 [INFO] from common.ActionCreator - User request: /users
+2016-06-22 11:37:37 +0700 [INFO] from common.ActionCreator - /users
+2016-06-22 11:40:20 +0700 [INFO] from common.ActionCreator - /users
+2016-06-22 11:40:25 +0700 [INFO] from common.ActionCreator - /login
+2016-06-22 11:40:35 +0700 [INFO] from common.ActionCreator - /users
+2016-06-22 11:40:39 +0700 [INFO] from common.ActionCreator - /users
+2016-06-22 11:41:21 +0700 [INFO] from common.ActionCreator - /users?code=phuong&password=123456789&type=1
+2016-06-22 11:42:07 +0700 [INFO] from common.ActionCreator - /users?code=phuong&password=123456789&type=1
+2016-06-22 11:42:18 +0700 [INFO] from common.ActionCreator - /users?code=phuong&password=123456789&type=1
+2016-06-22 11:48:23 +0700 [INFO] from common.ActionCreator - /users?code=phuong&password=123456789&type=1
+2016-06-22 11:48:46 +0700 [INFO] from common.ActionCreator - /users
+2016-06-22 11:48:57 +0700 [INFO] from common.ActionCreator - /users?code=phuong&password=123456789&type=1
+2016-06-22 11:50:14 +0700 [INFO] from common.ActionCreator - /users?code=phuong&password=123456789&type=1
+2016-06-22 11:51:31 +0700 [INFO] from common.ActionCreator - /users?code=phuong&password=123456789&type=1
+2016-06-22 11:52:00 +0700 [INFO] from common.ActionCreator - /users?code=phuong&password=123456789&type=1
+2016-06-22 11:56:01 +0700 [INFO] from common.ActionCreator - /
+2016-06-22 12:01:46 +0700 [INFO] from common.ActionCreator - /users

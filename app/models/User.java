@@ -3,15 +3,15 @@ package models;
 import java.io.Serializable;
 import java.util.UUID;
 
+import javax.inject.Inject;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.NoResultException;
 
 import play.data.validation.Constraints;
-import play.db.jpa.JPA;
+import play.db.jpa.JPAApi;
 
 /**
  * The persistent class for the user database table.
@@ -47,7 +47,6 @@ public class User implements Serializable {
 
     public User() {
     }
-
     public int getId() {
         return this.id;
     }
@@ -152,4 +151,5 @@ public class User implements Serializable {
     public void setAuthToken(String authToken) {
         this.auth_token = authToken;
     }
+
 }
