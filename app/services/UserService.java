@@ -51,6 +51,7 @@ public class UserService {
      * @return User
      */
     public static User create(User data) {
+        data.setPassword(getSha512(data.getPassword()));
         return CoreServices.create(data);
     }
 
@@ -143,6 +144,9 @@ public class UserService {
     }
 
     public static String getSha512(String value) {
+        if(StringUtils.isEmpty(value)){
+            return null;
+        }
         try {
             byte byteData[] = MessageDigest.getInstance("SHA-512").digest(value.getBytes("UTF-8"));
             StringBuffer sb = new StringBuffer();
