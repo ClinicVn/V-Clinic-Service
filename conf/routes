@@ -17,6 +17,13 @@ PUT     /users                  controllers.Md0002UserController.update()
 PATCH   /users                  controllers.Md0002UserController.update()
 DELETE  /users/$id<[0-9]+>      controllers.Md0002UserController.delete(id: Long)
 
+GET     /menus                  controllers.Md0003MenuController.list(page: Integer ?= 1, size: Integer ?= 3)
+GET     /menus/$id<[0-9]+>      controllers.Md0003MenuController.get(id: Long)
+POST    /menus                  controllers.Md0003MenuController.create()
+PUT     /menus                  controllers.Md0003MenuController.update()
+PATCH   /menus                  controllers.Md0003MenuController.update()
+DELETE  /menus/$id<[0-9]+>      controllers.Md0003MenuController.delete(id: Long)
+
 
 #GET     /swagger.json           controllers.ApiHelpController.getResources
 
