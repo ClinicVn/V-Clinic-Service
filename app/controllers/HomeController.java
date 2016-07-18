@@ -9,7 +9,7 @@ import play.libs.Json;
 import play.libs.Json.*;
 import play.data.Form;
 import play.db.jpa.*;
-import services.UserService;
+import services.Md0002UserService;
 import models.*;
 import views.html.*;
 

@@ -7,14 +7,17 @@
     <persistence-unit name="memoryPersistenceUnit" transaction-type="RESOURCE_LOCAL">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
         <non-jta-data-source>DefaultDS</non-jta-data-source>
-        <class>models.User</class>
-        <class>models.Employee</class>
-        <class>models.Role</class>
-        <class>models.UserHistory</class>
-        <class>models.UserOtp</class>
-        <class>models.UserRole</class>
-        <class>models.LastUpdate</class>
-        <class>models.Customer</class>
+        <class>models.Md0000MenuCategory</class>
+        <class>models.Md0002User</class>
+        <class>models.Md0002UserOtp</class>
+        <class>models.Md0003Menu</class>
+        <class>models.Md0003MenuRelation</class>
+        <class>models.Md0006Role</class>
+        <class>models.Md0006RoleChild</class>
+        <class>models.Md8014Notification</class>
+        <class>models.Md9008UserRole</class>
+        <class>models.Md9008UserTypePermission</class>
+        <class>models.Md9011RoleMenu</class>
         <properties>
             <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/>
             <property name="hibernate.hbm2ddl.auto" value="update"/>

@@ -7,7 +7,7 @@
 [0m[[0mdebug[0m] [0m== resolving dependencies for default#service-build;0.1-SNAPSHOT [compile][0m
 [0m[[0mdebug[0m] [0m== resolving dependencies default#service-build;0.1-SNAPSHOT->com.typesafe.sbteclipse#sbteclipse-plugin;4.0.0 [compile->default(compile)][0m
 [0m[[0minfo[0m] [0mResolving com.typesafe.sbteclipse#sbteclipse-plugin;4.0.0 ...[0m
-[0m[[0mdebug[0m] [0msbt-chain: Checking cache for: dependency: com.typesafe.sbteclipse#sbteclipse-plugin;4.0.0 {compile=[default(compile)]}[0m
+[0m[[0mdebug[0m] [0msbt-chain: Checking cache for: sbt.ivyint.MergedDescriptors@5121d73c[0m
 [0m[[0mdebug[0m] [0msbt-chain: module revision found in cache: com.typesafe.sbteclipse#sbteclipse-plugin;4.0.0[0m
 [0m[[0mdebug[0m] [0m	found com.typesafe.sbteclipse#sbteclipse-plugin;4.0.0 in sbt-chain[0m
 [0m[[0mdebug[0m] [0mdependency descriptor has been mediated: dependency: org.scala-lang#scala-library;2.10.5 {provided=[default(compile)]} => dependency: org.scala-lang#scala-library;2.10.6 {provided=[default(compile)]}[0m
@@ -15965,7 +15965,7 @@
 [0m[[0mdebug[0m] [0m	[NOT REQUIRED] org.scala-sbt#apply-macro;0.13.11!apply-macro.jar[0m
 [0m[[0mdebug[0m] [0m	[NOT REQUIRED] org.scala-lang#jline;2.10.6!jline.jar[0m
 [0m[[0mdebug[0m] [0m	[NOT REQUIRED] org.fusesource.jansi#jansi;1.4!jansi.jar[0m
-[0m[[0mdebug[0m] [0m:: resolution report :: resolve 5095ms :: artifacts dl 152ms[0m
+[0m[[0mdebug[0m] [0m:: resolution report :: resolve 6259ms :: artifacts dl 160ms[0m
 [0m[[0mdebug[0m] [0m	report for default#service-build;0.1-SNAPSHOT compile produced in E:\1.PROGRAM\PlayFramework\V-Clinic\Source\Service\project\target\resolution-cache\reports\default-service-build-compile.xml[0m
 [0m[[0mdebug[0m] [0m	report for default#service-build;0.1-SNAPSHOT runtime produced in E:\1.PROGRAM\PlayFramework\V-Clinic\Source\Service\project\target\resolution-cache\reports\default-service-build-runtime.xml[0m
 [0m[[0mdebug[0m] [0m	report for default#service-build;0.1-SNAPSHOT test produced in E:\1.PROGRAM\PlayFramework\V-Clinic\Source\Service\project\target\resolution-cache\reports\default-service-build-test.xml[0m
@@ -15979,5 +15979,5 @@
 [0m[[0mdebug[0m] [0m	report for default#service-build;0.1-SNAPSHOT docs produced in E:\1.PROGRAM\PlayFramework\V-Clinic\Source\Service\project\target\resolution-cache\reports\default-service-build-docs.xml[0m
 [0m[[0mdebug[0m] [0m	report for default#service-build;0.1-SNAPSHOT pom produced in E:\1.PROGRAM\PlayFramework\V-Clinic\Source\Service\project\target\resolution-cache\reports\default-service-build-pom.xml[0m
 [0m[[0mdebug[0m] [0m	report for default#service-build;0.1-SNAPSHOT scala-tool produced in E:\1.PROGRAM\PlayFramework\V-Clinic\Source\Service\project\target\resolution-cache\reports\default-service-build-scala-tool.xml[0m
-[0m[[0mdebug[0m] [0m	resolve done (5095ms resolve - 152ms download)[0m
+[0m[[0mdebug[0m] [0m	resolve done (6259ms resolve - 160ms download)[0m
 [0m[[0minfo[0m] [0mDone updating.[0m

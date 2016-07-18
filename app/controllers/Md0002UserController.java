@@ -1,5 +1,6 @@
 package controllers;
 
+import java.math.BigInteger;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -13,7 +14,7 @@ import play.libs.Json.*;
 import play.data.Form;
 import play.data.FormFactory;
 import play.db.jpa.*;
-import services.UserService;
+import services.Md0002UserService;
 import models.*;
 import views.html.*;
 
@@ -21,28 +22,28 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.google.inject.Inject;
 
 @Security.Authenticated(Secured.class)
-public class UserController extends Controller {
+public class Md0002UserController extends Controller {
     @Inject
     FormFactory formFactory;
-    final static Logger logger = LoggerFactory.getLogger(UserController.class);
-    public static User globleUser = new User();
+    final static Logger logger = LoggerFactory.getLogger(Md0002UserController.class);
+    //    public static Md0002User globleUser = new Md0002User();
 
 
     @Transactional(readOnly = true)
     public Result list(Integer page, Integer size) {
-        List models = UserService.paginate(page-1, size);
-        Long count = UserService.count();
+        List models = Md0002UserService.paginate(page-1, size);
+        Long count = Md0002UserService.count();
 
         ObjectNode result = Json.newObject();
         result.put("data", Json.toJson(models));
         result.put("total", count);
         if (page > 1) {
-            result.put("link-prev", routes.UserController.list(page-1, size).toString());
+            result.put("link-prev", routes.Md0002UserController.list(page-1, size).toString());
         }
         if (page*size < count) {
-            result.put("link-next", routes.UserController.list(page+1, size).toString());
+            result.put("link-next", routes.Md0002UserController.list(page+1, size).toString());
         }
-        result.put("link-self", routes.UserController.list(page, size).toString());
+        result.put("link-self", routes.Md0002UserController.list(page, size).toString());
 
         return JsonController.jsonResult(ok(result));
     }
@@ -55,8 +56,8 @@ public class UserController extends Controller {
      * @return Result
      */
     @Transactional(readOnly = true)
-    public Result get(Integer id) {
-        User user = UserService.find(id);
+    public Result get(Long id) {
+        Md0002User user = Md0002UserService.find(id);
         if (user == null ) {
             ObjectNode result = Json.newObject();
             result.put("error", "Not found " + id);
@@ -72,11 +73,11 @@ public class UserController extends Controller {
      */
     @Transactional
     public Result create() {
-        Form<User> user = formFactory.form(User.class).bindFromRequest();
+        Form<Md0002User> user = formFactory.form(Md0002User.class).bindFromRequest();
         if (user.hasErrors()) {
             return JsonController.jsonResult(badRequest(user.errorsAsJson()));
         }
-        User newUser = UserService.create(user.get());
+        Md0002User newUser = Md0002UserService.create(user.get());
         return JsonController.jsonResult(created(Json.toJson(newUser)));
     }
 
@@ -87,11 +88,11 @@ public class UserController extends Controller {
      */
     @Transactional
     public Result update() {
-        Form<User> user = formFactory.form(User.class).bindFromRequest();
+        Form<Md0002User> user = formFactory.form(Md0002User.class).bindFromRequest();
         if (user.hasErrors()) {
             return JsonController.jsonResult(badRequest(user.errorsAsJson()));
         }
-        User updatedUser = UserService.update(user.get());
+        Md0002User updatedUser = Md0002UserService.update(user.get());
         return JsonController.jsonResult(ok(Json.toJson(updatedUser)));
     }
 
@@ -103,8 +104,8 @@ public class UserController extends Controller {
      * @return Result
      */
     @Transactional
-    public Result delete(Integer id) {
-        if (UserService.delete(id)) {
+    public Result delete(Long id) {
+        if (Md0002UserService.delete(id)) {
             ObjectNode result = Json.newObject();
             result.put("msg", Messages.get("user.info.delete.success",id));
             return JsonController.jsonResult(ok(result));

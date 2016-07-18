@@ -1,7 +1,7 @@
 package controllers;
 
 
-import models.User;
+import models.Md0002User;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
 import play.mvc.Http.Context;
 import play.mvc.Result;
 import play.mvc.Security;
-import services.UserService;
+import services.Md0002UserService;
 
 
 public class Secured extends Security.Authenticator {
@@ -19,17 +19,17 @@ public class Secured extends Security.Authenticator {
     public String getUsername(Context ctx) {
         String[] authTokenHeaderValues = ctx.request().headers().get(SecurityController.AUTH_TOKEN_HEADER);
         if ((authTokenHeaderValues != null) && (authTokenHeaderValues.length == 1) && (authTokenHeaderValues[0] != null)) {
-            UserService userSv = new UserService();
-            User user = new User();
+            Md0002UserService userSv = new Md0002UserService();
+            Md0002User user = new Md0002User();
 
             try {
-                user = userSv.findByAuthToken2(authTokenHeaderValues[0]);
+                user = userSv.findByAuthToken(authTokenHeaderValues[0]);
             } catch (Throwable e) {
                 e.printStackTrace();
             }
             if (user != null) {
                 ctx.args.put("user", user);
-                return user.getName();
+                return user.getFullname();
             }
         }
 

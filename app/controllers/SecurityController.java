@@ -1,7 +1,7 @@
 package controllers;
 
 
-import models.User;
+import models.Md0002User;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,7 +14,7 @@ import play.mvc.Controller;
 import play.mvc.Http;
 import play.mvc.Result;
 import play.mvc.Security;
-import services.UserService;
+import services.Md0002UserService;
 
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
@@ -27,8 +27,8 @@ public class SecurityController extends Controller {
     public static final String AUTH_TOKEN = "authToken";
 
 
-    public static User getUser() {
-        return (User)Http.Context.current().args.get("user");
+    public static Md0002User getMd0002User() {
+        return (Md0002User)Http.Context.current().args.get("user");
     }
 
 
@@ -42,19 +42,19 @@ public class SecurityController extends Controller {
 
         Login login = loginForm.get();
 
-        User user = UserService.findByAccountAndPassword(login.account, login.password);
+        Md0002User user = Md0002UserService.findByAccountAndPassword(login.userCode, login.userPwd);
         if (user == null) {
             return unauthorized();
         }
         else {
             String authToken = user.createToken();
             user.setAuthToken(authToken);
-            UserService.update(user);
+            Md0002UserService.update(user);
 
             ObjectNode authTokenJson = Json.newObject();
             authTokenJson.put(AUTH_TOKEN, authToken);
             //            response().setCookie(Http.Cookie.builder(AUTH_TOKEN, authToken).withSecure(ctx().request().secure()).build());
-            response().setCookie(AUTH_TOKEN, authToken);
+            //response().setCookie(AUTH_TOKEN, authToken);
             return ok(authTokenJson);
         }
     }
@@ -62,17 +62,17 @@ public class SecurityController extends Controller {
     @Security.Authenticated(Secured.class)
     public Result logout() {
         response().discardCookie(AUTH_TOKEN);
-        getUser().deleteAuthToken();
+        getMd0002User().deleteAuthToken();
         return redirect("/");
     }
 
     public static class Login {
 
         @Constraints.Required
-        public String account;
+        public String userCode;
 
         @Constraints.Required
-        public String password;
+        public String userPwd;
 
     }
 
