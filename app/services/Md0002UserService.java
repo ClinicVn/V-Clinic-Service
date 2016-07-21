@@ -4,6 +4,7 @@ import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.persistence.NoResultException;
@@ -66,6 +67,7 @@ public class Md0002UserService {
     public static Md0002User update(Md0002User data) {
         return CoreServices.update(data);
     }
+
 
     /**
      * Find an Md0002User by id
@@ -140,19 +142,5 @@ public class Md0002UserService {
         catch (NoSuchAlgorithmException | UnsupportedEncodingException e) {
             throw new RuntimeException(e);
         }
-    }
-
-    public static Md0002User findByAccountAndPassword(String userCode, String userPwd) {
-        Md0002User md0002User = new Md0002User();
-        try{
-            md0002User = (Md0002User) JPA.em().createQuery("SELECT m FROM Md0002User m WHERE m.userCode LIKE :ac AND m.userPwd LIKE :pw")
-                    .setParameter("ac", userCode)
-                    .setParameter("pw", getSha512(userPwd))
-                    .getSingleResult();
-        }catch (Exception nre){
-            logger.error("Exception: "+ nre.getMessage());
-            return null;
-        }
-        return md0002User;
     }
 }

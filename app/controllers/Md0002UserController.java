@@ -1,6 +1,7 @@
 package controllers;
 
 import java.math.BigInteger;
+import java.util.HashMap;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -14,6 +15,7 @@ import play.libs.Json.*;
 import play.data.Form;
 import play.data.FormFactory;
 import play.db.jpa.*;
+import services.CoreServices;
 import services.Md0002UserService;
 import models.*;
 import views.html.*;
@@ -26,8 +28,6 @@ public class Md0002UserController extends Controller {
     @Inject
     FormFactory formFactory;
     final static Logger logger = LoggerFactory.getLogger(Md0002UserController.class);
-    //    public static Md0002User globleUser = new Md0002User();
-
 
     @Transactional(readOnly = true)
     public Result list(Integer page, Integer size) {
@@ -77,6 +77,18 @@ public class Md0002UserController extends Controller {
         if (user.hasErrors()) {
             return JsonController.jsonResult(badRequest(user.errorsAsJson()));
         }
+
+        // Check exist
+        HashMap<String, Object> params = new HashMap<String, Object>();
+        params.put("userCode", user.get().getUserCode());
+        params.put("status", "1");
+
+        if(CoreServices.findByFields(Md0002User.class, params).size() > 0){
+            ObjectNode result = Json.newObject();
+            result.put("error", "User code [" + user.get().getUserCode()+ "] existed.");
+            return JsonController.jsonResult(notFound(result));
+        }
+
         Md0002User newUser = Md0002UserService.create(user.get());
         return JsonController.jsonResult(created(Json.toJson(newUser)));
     }
@@ -92,7 +104,28 @@ public class Md0002UserController extends Controller {
         if (user.hasErrors()) {
             return JsonController.jsonResult(badRequest(user.errorsAsJson()));
         }
-        Md0002User updatedUser = Md0002UserService.update(user.get());
+
+
+        Md0002User inputUser = user.get();
+        if(inputUser.getGid() == null){
+            ObjectNode result = Json.newObject();
+            result.put("error", "User [gid] is required.");
+            return JsonController.jsonResult(notFound(result));
+        }
+
+        // Check exist
+        Md0002User existingUser = Md0002UserService.find(inputUser.getGid());
+        if(existingUser == null){
+            ObjectNode result = Json.newObject();
+            result.put("error", "User does not exist.");
+            return JsonController.jsonResult(notFound(result));
+        }
+
+        // Ignore fields
+        inputUser.setUserPwd(existingUser.getUserPwd());
+        inputUser.setUserCode(existingUser.getUserCode());
+
+        Md0002User updatedUser = Md0002UserService.update(inputUser);
         return JsonController.jsonResult(ok(Json.toJson(updatedUser)));
     }
 

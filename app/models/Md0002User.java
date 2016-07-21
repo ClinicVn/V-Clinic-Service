@@ -1,13 +1,21 @@
 package models;
 
 import java.io.Serializable;
-
-import javax.persistence.*;
-
-import java.sql.Timestamp;
 import java.math.BigInteger;
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.UUID;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+
+import play.data.validation.Constraints;
 
 
 /**
@@ -15,7 +23,7 @@ import java.util.UUID;
  *
  */
 @Entity
-@Table(name="md0002_user")
+@Table(name="md0002_user",  uniqueConstraints = @UniqueConstraint(columnNames = {"user_code"}))
 public class Md0002User implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -34,6 +42,7 @@ public class Md0002User implements Serializable {
     @Column(name="def_lang_code")
     private String defLangCode;
 
+    @Constraints.Required
     private String fullname;
 
     @Column(name="last_login_datetimez")
@@ -42,6 +51,7 @@ public class Md0002User implements Serializable {
     @Column(name="otp_flag")
     private String otpFlag;
 
+    @Constraints.Required
     private String status;
 
     @Column(name="summertime_flag")
@@ -50,11 +60,14 @@ public class Md0002User implements Serializable {
     @Column(name="timezone_gid")
     private BigInteger timezoneGid;
 
+    @Constraints.Required
     private String type;
 
+    @Constraints.Required
     @Column(name="user_code")
     private String userCode;
 
+    @Constraints.Required
     @Column(name="user_email")
     private String userEmail;
 

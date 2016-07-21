@@ -29,6 +29,7 @@ public class ErrorHandler implements HttpErrorHandler {
 
     public CompletionStage<Result> onServerError(RequestHeader request, Throwable exception) {
         if(exception != null){
+            exception.printStackTrace();
             logger.error("===SERVER ERROR==="+" \nMessage: "+   exception.getMessage() +" \nCause: "+ exception.getCause().getCause());
         }
         return CompletableFuture.completedFuture(

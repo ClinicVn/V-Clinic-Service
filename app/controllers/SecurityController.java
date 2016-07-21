@@ -1,6 +1,9 @@
 package controllers;
 
 
+import java.util.HashMap;
+import java.util.List;
+
 import models.Md0002User;
 
 import org.slf4j.Logger;
@@ -14,6 +17,7 @@ import play.mvc.Controller;
 import play.mvc.Http;
 import play.mvc.Result;
 import play.mvc.Security;
+import services.CoreServices;
 import services.Md0002UserService;
 
 import com.fasterxml.jackson.databind.node.ObjectNode;
@@ -41,20 +45,21 @@ public class SecurityController extends Controller {
         }
 
         Login login = loginForm.get();
+        HashMap<String, Object> params = new HashMap<String, Object>();
+        params.put("userCode", login.userCode);
+        params.put("userPwd", Md0002UserService.getSha512(login.userPwd));
+        List<Md0002User> user = CoreServices.findByFields(Md0002User.class, params);
 
-        Md0002User user = Md0002UserService.findByAccountAndPassword(login.userCode, login.userPwd);
-        if (user == null) {
+        if (user.size() == 0) {
             return unauthorized();
         }
         else {
-            String authToken = user.createToken();
-            user.setAuthToken(authToken);
-            Md0002UserService.update(user);
+            String authToken = user.get(0).createToken();
+            user.get(0).setAuthToken(authToken);
+            Md0002UserService.update(user.get(0));
 
             ObjectNode authTokenJson = Json.newObject();
             authTokenJson.put(AUTH_TOKEN, authToken);
-            //            response().setCookie(Http.Cookie.builder(AUTH_TOKEN, authToken).withSecure(ctx().request().secure()).build());
-            //response().setCookie(AUTH_TOKEN, authToken);
             return ok(authTokenJson);
         }
     }
