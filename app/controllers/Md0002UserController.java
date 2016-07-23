@@ -81,7 +81,6 @@ public class Md0002UserController extends Controller {
         // Check exist
         HashMap<String, Object> params = new HashMap<String, Object>();
         params.put("userCode", user.get().getUserCode());
-        params.put("status", "1");
 
         if(CoreServices.findByFields(Md0002User.class, params).size() > 0){
             ObjectNode result = Json.newObject();
