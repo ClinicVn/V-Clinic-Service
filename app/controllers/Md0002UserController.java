@@ -29,9 +29,10 @@ public class Md0002UserController extends Controller {
     FormFactory formFactory;
     final static Logger logger = LoggerFactory.getLogger(Md0002UserController.class);
 
+    @SuppressWarnings("deprecation")
     @Transactional(readOnly = true)
     public Result list(Integer page, Integer size) {
-        List models = Md0002UserService.paginate(page-1, size);
+        List<Md0002User> models = Md0002UserService.paginate(page-1, size);
         Long count = Md0002UserService.count();
 
         ObjectNode result = Json.newObject();
@@ -45,7 +46,7 @@ public class Md0002UserController extends Controller {
         }
         result.put("link-self", routes.Md0002UserController.list(page, size).toString());
 
-        return JsonController.jsonResult(ok(result));
+        return JsonController.ok(result);
     }
 
     /**
@@ -59,11 +60,9 @@ public class Md0002UserController extends Controller {
     public Result get(Long id) {
         Md0002User user = Md0002UserService.find(id);
         if (user == null ) {
-            ObjectNode result = Json.newObject();
-            result.put("error", "Not found " + id);
-            return JsonController.jsonResult(notFound(result));
+            return JsonController.notFound(id);
         }
-        return JsonController.jsonResult(ok(Json.toJson(user)));
+        return JsonController.ok(Json.toJson(user));
     }
 
     /**
@@ -75,7 +74,7 @@ public class Md0002UserController extends Controller {
     public Result create() {
         Form<Md0002User> user = formFactory.form(Md0002User.class).bindFromRequest();
         if (user.hasErrors()) {
-            return JsonController.jsonResult(badRequest(user.errorsAsJson()));
+            return JsonController.badRequest(user.errorsAsJson());
         }
 
         // Check exist
@@ -83,13 +82,11 @@ public class Md0002UserController extends Controller {
         params.put("userCode", user.get().getUserCode());
 
         if(CoreServices.findByFields(Md0002User.class, params).size() > 0){
-            ObjectNode result = Json.newObject();
-            result.put("error", "User code [" + user.get().getUserCode()+ "] existed.");
-            return JsonController.jsonResult(notFound(result));
+            return JsonController.blogicError("User code [" + user.get().getUserCode()+ "] existed.");
         }
 
         Md0002User newUser = Md0002UserService.create(user.get());
-        return JsonController.jsonResult(created(Json.toJson(newUser)));
+        return JsonController.created(Json.toJson(newUser));
     }
 
     /**
@@ -101,23 +98,19 @@ public class Md0002UserController extends Controller {
     public Result update() {
         Form<Md0002User> user = formFactory.form(Md0002User.class).bindFromRequest();
         if (user.hasErrors()) {
-            return JsonController.jsonResult(badRequest(user.errorsAsJson()));
+            return JsonController.badRequest(user.errorsAsJson());
         }
 
 
         Md0002User inputUser = user.get();
         if(inputUser.getGid() == null){
-            ObjectNode result = Json.newObject();
-            result.put("error", "User [gid] is required.");
-            return JsonController.jsonResult(notFound(result));
+            return JsonController.blogicError("User [gid] is required.");
         }
 
         // Check exist
         Md0002User existingUser = Md0002UserService.find(inputUser.getGid());
         if(existingUser == null){
-            ObjectNode result = Json.newObject();
-            result.put("error", "User does not exist.");
-            return JsonController.jsonResult(notFound(result));
+            return JsonController.blogicError("User does not exist.");
         }
 
         // Ignore fields
@@ -125,7 +118,7 @@ public class Md0002UserController extends Controller {
         inputUser.setUserCode(existingUser.getUserCode());
 
         Md0002User updatedUser = Md0002UserService.update(inputUser);
-        return JsonController.jsonResult(ok(Json.toJson(updatedUser)));
+        return JsonController.ok(Json.toJson(updatedUser));
     }
 
     /**
@@ -138,12 +131,8 @@ public class Md0002UserController extends Controller {
     @Transactional
     public Result delete(Long id) {
         if (Md0002UserService.delete(id)) {
-            ObjectNode result = Json.newObject();
-            result.put("msg", Messages.get("user.info.delete.success",id));
-            return JsonController.jsonResult(ok(result));
+            return JsonController.ok(Messages.get("user.info.delete.success",id));
         }
-        ObjectNode result = Json.newObject();
-        result.put("error",Messages.get("user.error.delete.notFound",id));
-        return JsonController.jsonResult(notFound(result));
+        return JsonController.notFound(Messages.get("user.error.delete.notFound",id));
     }
 }

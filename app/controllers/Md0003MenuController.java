@@ -43,7 +43,7 @@ public class Md0003MenuController extends Controller {
         }
         result.put("link-self", routes.Md0003MenuController.list(page, size).toString());
 
-        return JsonController.jsonResult(ok(result));
+        return JsonController.ok(result);
     }
 
     /**
@@ -57,11 +57,9 @@ public class Md0003MenuController extends Controller {
     public Result get(Long id) {
         Md0003Menu menu = Md0003MenuService.find(id);
         if (menu == null ) {
-            ObjectNode result = Json.newObject();
-            result.put("error", "Not found " + id);
-            return JsonController.jsonResult(notFound(result));
+            return JsonController.notFound(id);
         }
-        return JsonController.jsonResult(ok(Json.toJson(menu)));
+        return JsonController.ok(Json.toJson(menu));
     }
 
     /**
@@ -73,10 +71,10 @@ public class Md0003MenuController extends Controller {
     public Result create() {
         Form<Md0003Menu> menu = formFactory.form(Md0003Menu.class).bindFromRequest();
         if (menu.hasErrors()) {
-            return JsonController.jsonResult(badRequest(menu.errorsAsJson()));
+            return JsonController.badRequest(menu.errorsAsJson());
         }
         Md0003Menu newUser = Md0003MenuService.create(menu.get());
-        return JsonController.jsonResult(created(Json.toJson(newUser)));
+        return JsonController.created(Json.toJson(newUser));
     }
 
     /**
@@ -88,10 +86,10 @@ public class Md0003MenuController extends Controller {
     public Result update() {
         Form<Md0003Menu> menu = formFactory.form(Md0003Menu.class).bindFromRequest();
         if (menu.hasErrors()) {
-            return JsonController.jsonResult(badRequest(menu.errorsAsJson()));
+            return JsonController.badRequest(menu.errorsAsJson());
         }
         Md0003Menu updatedUser = Md0003MenuService.update(menu.get());
-        return JsonController.jsonResult(ok(Json.toJson(updatedUser)));
+        return JsonController.ok(Json.toJson(updatedUser));
     }
 
     /**
@@ -104,12 +102,8 @@ public class Md0003MenuController extends Controller {
     @Transactional
     public Result delete(Long id) {
         if (Md0003MenuService.delete(id)) {
-            ObjectNode result = Json.newObject();
-            result.put("msg", Messages.get("menu.info.delete.success",id));
-            return JsonController.jsonResult(ok(result));
+            return JsonController.ok(Messages.get("menu.info.delete.success",id));
         }
-        ObjectNode result = Json.newObject();
-        result.put("error",Messages.get("menu.error.delete.notFound",id));
-        return JsonController.jsonResult(notFound(result));
+        return JsonController.notFound(Messages.get("menu.error.delete.notFound",id));
     }
 }
